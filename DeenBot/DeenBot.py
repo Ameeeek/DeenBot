@@ -25,4 +25,4 @@ async def on_message(pesan):
         await pesan.channel.send(random.choice(janganSedih))
 
 
-client.run('ODY4OTI3MzkzOTYyODE1NTQ4.YP2xsg.QX8Cbr9zVKDqPAXejdgCd8kffNw')
+client.run('TOKEN')
