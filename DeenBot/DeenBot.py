@@ -9,13 +9,17 @@ import os
 #main
 client = discord.Client()
 
-
-# sutan lab api
-def get_hadiths():
-    response = requests.get("https://api.hadith.sutanlab.id/books/muslim?range=1-150")
-    json_data = json.load(response.text)
-    hadith = json_data["data"]["id"]
-    return(hadith)
+#api SutanLab
+def get_quote():
+  response = requests.get("https://api.hadith.sutanlab.id/books/ibnu-majah?range=1-300")
+  json_data = json.loads(response.text)
+  quote = json_data["data"]["hadiths"]
+  return(quote)
+def get_perawi():
+  response = requests.get("https://api.hadith.sutanlab.id/books/ibnu-majah?range=1-300")
+  json_data = json.loads(response.text)
+  perawi = json_data["data"]["name"] 
+  return(perawi)
 
 #word list
 sedih = ["sedih", "stress", "depresi", "pusing"]
@@ -43,16 +47,16 @@ async def on_message(pesan):
         await pesan.channel.send(random.choice(janganSedih))
     if any(word in pesan.content for word in senang):
         await pesan.channel.send(random.choice(Bersyukur))
-    if pesan.content.startswith('hadith'):
-        hadith = get_hadiths()
-        await pesan.channel.send(hadith)
     if pesan.content.startswith('--version'):
-        myEmbed = discord.Embed(title="DeenBot", description="Version 0.1.3", color=0x00ff00)
+        myEmbed = discord.Embed(title="DeenBot", description="Version 0.1.5", color=0x00ff00)
         myEmbed.add_field(name="date released", value="26/7/2021", inline="false")
         myEmbed.set_footer(text="dunia is temporary, deen is forever")
         myEmbed.set_author(name="Amek, Bluxe")
         await pesan.channel.send(embed=myEmbed)
-
-
+    if pesan.content.startswith('hadist of the day'):
+      quote = get_quote()
+      perawi = get_perawi()
+      await pesan.channel.send(perawi)
+      await pesan.channel.send(random.choice(quote)["id"])
 keep_alive()
 client.run(os.getenv('token'))
