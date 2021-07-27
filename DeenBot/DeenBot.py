@@ -1,17 +1,15 @@
 import discord
 from discord import message
 import requests
-from discord.ext import commands
 import json
 import random
 from keep_alive import keep_alive
 import os
 #main
 client = discord.Client()
-
 #api SutanLab
 def get_quote():
-  response = requests.get("https://api.hadith.sutanlab.id/books/ibnu-majah?range=1-300")
+  response = requests.get("https://api.hadith.sutanlab.id/books/ibnu-majah?range=1-150")
   json_data = json.loads(response.text)
   quote = json_data["data"]["hadiths"]
   return(quote)
@@ -22,6 +20,7 @@ def get_perawi():
   return(perawi)
 
 #word list
+sara = ["Yshoes", "awloch"]
 sedih = ["sedih", "stress", "depresi", "pusing"]
 janganSedih = ["Janganlah kamu bersedih, sesungguhnya Allah bersama kita.— At-Taubah: 40",
     "Ingatlah, hanya dengan mengingat Allah-lah hati menjadi tenteram.– QS Ar Ra’d: 28", 
@@ -33,10 +32,12 @@ Bersyukur = ["Karena itu, ingatlah kamu kepada-Ku niscaya Aku ingat (pula) kepad
 @client.event
 async def on_ready():
     print('{0.user} is now on'.format(client))
-#embed message
 
 
 # features
+# ban
+
+# wordlist
 @client.event
 async def on_message(pesan):
     if pesan.author == client.user:
@@ -58,5 +59,9 @@ async def on_message(pesan):
       perawi = get_perawi()
       await pesan.channel.send(perawi)
       await pesan.channel.send(random.choice(quote)["id"])
+    if any(word in pesan.content for word in sara):
+      await pesan.channel.send('dilarang sara bang!')
+    
+    
 keep_alive()
 client.run(os.getenv('token'))
