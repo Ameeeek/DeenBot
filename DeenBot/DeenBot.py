@@ -7,12 +7,12 @@ from discord.ext import commands
 from discord.ext.commands.core import has_permissions
 from keep_alive import keep_alive
 import os
+
 #main
 client = discord.Client()
-clientt = commands.Bot(command_prefix= '.')
 #api SutanLab
 def get_quote():
-  response = requests.get("https://api.hadith.sutanlab.id/books/ibnu-majah?range=1-150")
+  response = requests.get("https://api.hadith.sutanlab.id/books/ibnu-majah?range=1500-1700")
   json_data = json.loads(response.text)
   quote = json_data["data"]["hadiths"]
   return(quote)
@@ -31,6 +31,12 @@ janganSedih = ["Janganlah kamu bersedih, sesungguhnya Allah bersama kita.— At-
         ]
 senang = ["senang", "seneng", "bahagia"]
 Bersyukur = ["Karena itu, ingatlah kamu kepada-Ku niscaya Aku ingat (pula) kepadamu, dan bersyukurlah kepada-Ku, dan janganlah kamu mengingkari (nikmat)-Ku.-QS Al baqarah: 152", "Tanah yang baik, tanaman-tanamannya tumbuh subur atas izin Allah. Dan tanah yang tidak subur, tanaman-tanamannya hanya tumbuh merana. Demikianlah Kami mengulangi tanda-tanda kebesaran (Kami) bagi orang-orang yang bersyukur. – (Q.S Al-A’raf: 58)", "Dan ingatlah ketika Tuhanmu memaklumkan, “Sesungguhnya jika kamu bersyukur, pasti Aku akan menambahkan nikmat-Ku kepadamu, dan jika kamu mengingkari (nikmat-Ku), maka sesungguhnya azab-Ku sangatlah pedih”. – (Q.S Ibrahim: 7)", "Dan Dialah, Allah yang menundukkan lautan, supaya kamu dapat memakan daging yang segar (ikan) dari hasil laut itu, dan dari lautan itu kamu mengeluarkan perhiasan yang kamu pakai. Dan kamu melihat bahtera berlayar padanya, dan supaya kamu mencari (keuntungan) dari karunia-Nya, dan supaya kamu bersyukur. – (Q.S An-Nahl: 14)", "Dan Allah mengeluarkan kamu dari perut ibumu dalam kondisi tidak mengetahui sesuatupun, dan Dia memberi kamu pendengaran, penglihatan dan hati, agar kamu bersyukur. – (Q.S An-Nahl: 78)", "Maka makanlah yang halal lagi baik dari rezeki yang telah Allah berikan kepadamu, dan bersyukurlah kamu atas nikmat Allah, jika memang hanya kepada-Nya kamu menyembah. – (Q.S An-Nahl: 114)", "Dan Dia (Allah) yang menjadikan malam dan siang silih berganti bagi orang yang ingin mengambil pelajaran atau orang yang ingin bersyukur. – (Q.S Al-Furqan: 62)", "“Allah berfirman dalam hadits qudsi-Nya: “wahai anak Adam, bahwa selama engkau mengingat Aku, berarti engkau mensyukuri Aku, dan apabila engkau melupakan Aku, berarti engkau telah mendurhakai Aku!”. [H.R Thabrani]", ""]
+semangat = ["jangan nyerah ya", "semangat terus"]
+penyemangat = ["Janganlah kamu bersikap lemah, dan janganlah (pula) kamu bersedih hati, padahal kamulah orang-orang yang paling tinggi (derajatnya), jika kamu orang-orang yang beriman.",
+"“Hai orang-orang yang beriman bersabarlah kamu dan kuatkanlah kesabaranmu dan tetaplah bersiap siaga (diperbatasan negerimu) dan bertawakalah kepada Allah supaya kamu beruntung.” (QS Al Imran 200)",
+"“Wahai mereka yang beriman, mintalah pertolongan kepada Allah dengan sabar dan solat. Sesungguhnya Allah bersama-sama dengan orang yang sabar.” (Al-Baqarah: 153)",
+"“Dan apabila hamba-hamba-Ku bertanya kepadamu tentang Aku, maka (jawablah), bahwasannya Aku adalah dekat. Aku mengabulkan permohonan orang yang berdo’a apabila ia memohon kepada-Ku, maka hendaklah mereka itu memenuhi (segala perintah)Ku dan hendaklah mereka beriman kepada-Ku, agar mereka selalu berada dalam kebenaran”. (QS. Al Baqarah: 186)"
+]
 #main loop
 @client.event
 async def on_ready():
@@ -38,12 +44,6 @@ async def on_ready():
 
 
 # features
-# ban
-@clientt.command()
-@has_permissions(kick_members=True)
-async def kick(ctx, member: discord.Member, *, reason=None):
-  await member.kick(reason=reason)
-  await ctx.send(f'{member} telah di kick dari server!')
 # wordlist
 @client.event
 async def on_message(pesan):
@@ -68,7 +68,8 @@ async def on_message(pesan):
       await pesan.channel.send(random.choice(quote)["id"])
     if any(word in pesan.content for word in sara):
       await pesan.channel.send('dilarang sara bang!\nDan janganlah kamu memaki sembahan-sembahan yang mereka sembah selain Allah, karena mereka nanti akan memaki Allah dengan melampaui batas tanpa pengetahuan. Demikianlah Kami jadikan setiap umat menganggap baik pekerjaan mereka. Kemudian kepada Tuhan merekalah kembali mereka, lalu Dia memberitakan kepada mereka apa yang dahulu mereka kerjakan [QS: Al-An\'am 108]')
-    
+    if any(word in pesan.content for word in semangat):
+        await pesan.channel.send(random.choice(penyemangat))
     
 keep_alive()
 client.run(os.getenv('token'))
