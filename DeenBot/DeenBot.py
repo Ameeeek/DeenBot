@@ -56,7 +56,7 @@ async def on_message(pesan):
     if any(word in pesan.content for word in senang):
         await pesan.channel.send(random.choice(Bersyukur))
     if pesan.content.startswith('--version'):
-        myEmbed = discord.Embed(title="DeenBot", description="Version 0.1.7", color=0x00ff00)
+        myEmbed = discord.Embed(title="DeenBot", description="Version 0.1.8", color=0x00ff00)
         myEmbed.add_field(name="date released", value="26/7/2021", inline="false")
         myEmbed.set_footer(text="dunia is temporary, deen is forever")
         myEmbed.set_author(name="Amek, Bluxe")
