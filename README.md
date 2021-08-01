@@ -1,6 +1,6 @@
 # DeenBot
-created by : Amek
-Maintain by : bluxe
+created by : Amek (@amek.code)
+Maintain by : bluxe (@wxzzy0_)
 this bot is created for my muslim brother 
 
-special thanks to bluxe, and zeline for helping me creating this bot 
+special thanks to bluxe, and zeline(amrzlnnn) for helping me creating this bot 
