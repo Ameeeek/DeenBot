@@ -10,12 +10,12 @@ import os
 from keep_alive import keep_alive
 
 def get_quote():
-  response = requests.get("https://api.hadith.sutanlab.id/books/ibnu-majah?range=2000-2200")
+  response = requests.get("https://api.hadith.sutanlab.id/books/ibnu-majah?range=2501-2599")
   json_data = json.loads(response.text)
   quote = json_data["data"]["hadiths"]
   return(quote)
 def get_perawi():
-  response = requests.get("https://api.hadith.sutanlab.id/books/ibnu-majah?range=2000-2200")
+  response = requests.get("https://api.hadith.sutanlab.id/books/ibnu-majah?range=2501-2599")
   json_data = json.loads(response.text)
   perawi = json_data["data"]["name"] 
   return(perawi)
@@ -125,6 +125,11 @@ async def on_message(message):
         myEmbed.set_footer(text="dunia is temporary, deen is forever")
         myEmbed.set_author(name="Amek, Bluxe")
         await message.channel.send(embed=myEmbed)
+    if message.content.startswith('.darkjoke'):
+      await message.channel.send('"Dan jika kamu tanyakan kepada mereka (tentang apa yang mereka lakukan itu), tentulah mereka akan menjawab, ‘Sesungguhnya kami hanyalah bersenda gurau dan bermain-main saja’. Katakanlah, ‘Apakah dengan Allah, ayat-ayat-Nya, dan Rasul -Nya kamu selalu berolok-olok?" (QS at-Taubah [9]: 65).')
+      await message.channel.send('"Tidak usah kamu minta maaf, karena kamu kafir sesudah beriman. Jika Kami memaafkan segolongan kamu (lantaran mereka taubat), niscaya Kami akan mengazab golongan (yang lain) disebabkan mereka adalah orang-orang yang selalu berbuat dosa." (QS at-Taubah [9]:66)')
+    if message.content.startswith('.DarkJoke'):
+      await message.channel.send('Dan tinggalkanlah orang-orang yang menjadikan agama mereka sebagai main-main dan senda gurau, dan mereka telah ditipu oleh kehidupan dunia. Peringatkanlah (mereka) dengan al-Quran itu agar masing-masing diri tidak dijerumuskan (ke dalam neraka), karena perbuatannya sendiri. Tidak akan ada baginya pelindung selain Allâh dan tidak pula pemberi syafaat. Meskipun dia menebus dengan segala macam tebusan pun, niscaya tidak akan diterima itu darinya. Mereka itulah orang-orang yang dijerumuskan (ke dalam neraka) karena apa-apa yang telah mereka lakukan. Bagi mereka (disediakan) minuman dari air yang sedang mendidih dan adzab yang pedih disebabkan kekafiran mereka dahulu. [Al-An’am/6:70]')
  
 bot.add_cog(Moderation())
 keep_alive()
