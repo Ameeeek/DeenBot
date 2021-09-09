@@ -10,12 +10,12 @@ import os
 from keep_alive import keep_alive
 
 def get_quote():
-  response = requests.get("https://api.hadith.sutanlab.id/books/ibnu-majah?range=2501-2599")
+  response = requests.get("https://api.hadith.sutanlab.id/books/ibnu-majah?range=2600-2900")
   json_data = json.loads(response.text)
   quote = json_data["data"]["hadiths"]
   return(quote)
 def get_perawi():
-  response = requests.get("https://api.hadith.sutanlab.id/books/ibnu-majah?range=2501-2599")
+  response = requests.get("https://api.hadith.sutanlab.id/books/ibnu-majah?range=2600-2900")
   json_data = json.loads(response.text)
   perawi = json_data["data"]["name"] 
   return(perawi)
@@ -89,7 +89,7 @@ class Moderation(commands.Cog, description="commands for moderation use $ as pre
 bot = commands.Bot(command_prefix = "$")
 @bot.event 
 async def on_ready():
-    activity=discord.Activity(type=discord.ActivityType.watching, name='Memburu Psara')
+    activity=discord.Activity(type=discord.ActivityType.watching, name='Allah is watching')
     await bot.change_presence(activity=activity)
     print("bot ready!")
 @bot.event 
